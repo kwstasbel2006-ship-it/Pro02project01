@@ -1,1 +1,4 @@
-#include<stdio.c>
+#include<stdio.h>
+inm main (void){
+    return 0;
+}
