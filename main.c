@@ -1,5 +1,5 @@
 #include<stdio.h>
 int main (void){
-    ΠΡΙΝΤΦ("ΣΔΓ")
+    printf("helow aleko");
     return 0;
 }
