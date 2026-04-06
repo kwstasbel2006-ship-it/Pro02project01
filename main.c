@@ -1,6 +1,6 @@
 #include<stdio.h>
 int main (void){
-    printf("helow aleko");  //alekos 2,3,5
+    printf("helow kyrie kosta");  //alekos 2,3,5
                             //kvnstas 1,4
 
     //while (){
