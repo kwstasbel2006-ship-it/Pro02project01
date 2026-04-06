@@ -1,4 +1,4 @@
 #include<stdio.h>
-inm main (void){
+int main (void){
     return 0;
 }
