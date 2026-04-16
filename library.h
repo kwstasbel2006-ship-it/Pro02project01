@@ -10,8 +10,8 @@
 
 #define MIN_ROWS 5
 #define MIN_COLS 5
-#define MΑΧ_ROWS 35
-#define MΑΧ_COLS 35
+#define MAX_ROWS 35
+#define MAX_COLS 35
 //alekos's varaiables
 
 typedef enum { UP, DOWN, LEFT, RIGHT } SoundDirection;
