@@ -20,15 +20,15 @@ void createboard() //δημιουργία ταμπλό
         board[i] = (char *)malloc(cols * sizeof(char));
         for (int j = 0; j < cols; j++) 
         {
-            double r = (double)rand() / RAND_MAX; 
-            if (r < 0.20)
+            double probabilities = 0.20; // Βασική πιθανότητα 20%
+            if ((j > 0 && board[i][j-1] == '#') || (i > 0 && board[i-1][j] == '#')) 
             {
-                board[i][j] = '#'; // 20% πιθανότητα για κτίριο
-                double probability = 0.20;
-                if ((j > 0 && board[i][j-1] == '#') || (i > 0 && board[i-1][j] == '#')) 
-                {
-                     probability = 0.40;
-                }
+                probabilities = 0.40; // Αν υπάρχει γείτονας, το όριο γίνεται 40%
+            }
+            double r = (double)rand() / RAND_MAX; 
+            if (r < probabilities) 
+            {
+                board[i][j] = '#'; 
             }
             else
                 board[i][j] = (rand() % 9 + 1) + '0'; // 80% πιθανότητα για zombie
