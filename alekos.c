@@ -1,17 +1,11 @@
 #include <stdio.h>   
 #include <stdlib.h>  
 #include <time.h>    
+#include "library.h"
 
 #define MIN_ROWS 5
 #define MIN_COLS 5
 
-typedef enum { UP, DOWN, LEFT, RIGHT } SoundDirection; //εδω οριζουμε τις κατευθυνσεις του ηχου σαν μια μεταβλητη
-SoundDirection currentsound;
-
-char **board;        
-int rows, cols;      
-int score = 0;       
-int level = 1;
 void createboard() //δημιουργία ταμπλό
 {
     board = (char **)malloc(rows * sizeof(char *));
