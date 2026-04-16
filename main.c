@@ -1,5 +1,5 @@
-#include<stdio.h>
 #include"library.h"
+#include<stdio.h>
 
 SoundDirection currentsound;
 char **board;        
