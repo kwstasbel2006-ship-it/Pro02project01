@@ -14,48 +14,33 @@ int main (void){
     char test;
     scanf("%c",&test);
     if(test == 'a'){          //TESTARISMATA ALEKOS
+        rows=7;
+        cols=8;
         createboard();
         displayboard();
+        print(board);
         free_board();
     }else if(test == 'k'){    //TESTARISMATA KOSTAS
-        int i,j;
-        char **board;
-        board = malloc((7)*sizeof(char*));
-		if(board==NULL)
-			printf("ERROR 1");
-		for(i=0;i<7;i++)
-		{
-			board[i]=malloc((8)*sizeof(char*));
-			if(board[i]==NULL)
-				printf("ERROR 1");
-		}
-
-        char template[7][8] = {
-            {'2','2','1','9','8','4','8','3'},
-            {'6','#','#','7','6','8','2','8'},
-            {'8','4','#','1','8','3','8','5'},
-            {'3','1','6','3','8','2','5','8'},
-            {'9','3','4','3','7','#','#','8'},
-            {'#','#','3','3','7','#','#','4'},
-            {'1','6','3','5','7','4','3','1'}
-        };
-        
-        for(i = 0; i < 7; i++) {
-            for(j = 0; j < 8; j++) {
-                board[i][j] = template[i][j];
-            }
-        }
-        
-        print(board);
-        
-        
+        creationOfTheTestBoard();
         freeBoard(board);
     }else{                  //the actual program 
-
+        char command = '!';
+        creationOfTheTestBoard();
+        while((command != 'x')&&(rows<=35)&&(cols<=35)){
+            //creation of the board
+            //sound thing
+            //new city created             
+            while ((command != 'x')&&(countOfAliveZombies(board)>0)){
+                print(board);
+                scanf("%c",&command);
+                if (isFightCommand(command))
+                    fight(toLowercase(command),board);
+                else
+                    break;
+            }
+            freeBoard(board);
+        }
     }
     
-    //while (){
-        
-    //}
     return 0;
 }
