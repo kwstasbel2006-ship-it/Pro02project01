@@ -33,9 +33,10 @@ int main (void){
             while ((command != 'x')&&(countOfAliveZombies(board)>0)){
                 print(board);
                 scanf("%c",&command);
-                if (isFightCommand(command))
+                if (isFightCommand(command)){
                     fight(toLowercase(command),board);
-                else
+                    soundThing(board);
+                }else
                     break;
             }
             freeBoard(board);
