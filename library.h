@@ -38,5 +38,7 @@ int countOfAliveZombies(char **board);
 int isZombie(char z);
 void fight(char command, char **board);
 void creationOfTheTestBoard();
+void soundThing(char **board,SoundDirection currentSound);
+int validCommand(char command);
 
 #endif

@@ -27,17 +27,20 @@ int main (void){
         char command = '!';
         creationOfTheTestBoard();
         while((command != 'x')&&(rows<=35)&&(cols<=35)){
-            //creation of the board
+            createboard();
             //sound thing
-            //new city created             
+            //new city created
             while ((command != 'x')&&(countOfAliveZombies(board)>0)){
                 print(board);
                 scanf("%c",&command);
-                if (isFightCommand(command)){
-                    fight(toLowercase(command),board);
-                    soundThing(board,currentSound);
+                if (validCommand(command)){
+                    if (isFightCommand(command)){
+                        fight(toLowercase(command),board);
+                        soundThing(board,currentSound);
+                    }else
+                        break;
                 }else
-                    break;
+                    continue;
             }
             freeBoard(board);
         }

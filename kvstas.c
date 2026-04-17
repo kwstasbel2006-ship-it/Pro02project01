@@ -98,5 +98,13 @@ int isZombie(char z){
 }
 
 void fight(char command, char **board){
-        printf("FIGHT !!");
-} 
+        printf("FIGHT !!\n");
+}
+
+void soundThing(char **board,SoundDirection currentSound){
+        printf("sound  movement\n");
+}
+
+int validCommand(char command){
+
+}
