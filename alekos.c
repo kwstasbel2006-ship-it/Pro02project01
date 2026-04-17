@@ -29,7 +29,7 @@ void createboard() //δημιουργία ταμπλό
 
         }
     }
-    currentsound = rand() % 4; // Τυχαία κατεύθυνση ήχου
+    currentSound = rand() % 4; // Τυχαία κατεύθυνση ήχου
 
 }
 
