@@ -40,5 +40,6 @@ void fight(char command, char **board);
 void creationOfTheTestBoard();
 void soundThing(char **board,SoundDirection currentSound);
 int validCommand(char command);
+char alphabet(int i);
 
 #endif

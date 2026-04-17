@@ -39,9 +39,9 @@ void print(char **board)
         printf("\n");
 
         int j, i;
-        printf("     ");
+        printf("(x\\y)");
         for (j = 0;j < cols ;j++)
-                printf("%3c",j+65);
+                printf("%3c",alphabet(j+1));
         printf("\n");
 
 
@@ -51,12 +51,19 @@ void print(char **board)
         printf("\n");
 
         for (i = 0;i < rows ;i++){
-                printf("%2d  |", i+1);
+                printf("%2c  |",alphabet(i+1));
                 for (j = 0;j < cols ;j++)
                         printf("%3c", board[i][j]);
                 printf("\n");
         }
         printf("\n");
+}
+
+char alphabet(int i){
+        if ((i>=0)&&(i<=9)){
+                return i+'0';
+        }else
+                return i-10+'A';
 }
 
 void freeBoard(char **board){
