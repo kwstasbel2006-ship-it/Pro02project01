@@ -12,7 +12,7 @@
 #define MIN_COLS 5
 #define MAX_ROWS 35
 #define MAX_COLS 35
-//alekos's varaiabl es
+//alekos's variables
 
 typedef enum { UP, DOWN, LEFT, RIGHT } SoundDirection;
 extern SoundDirection currentSound;

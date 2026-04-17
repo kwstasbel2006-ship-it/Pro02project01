@@ -87,7 +87,7 @@ char toLowercase(char command){
 
 int countOfAliveZombies(char **board){
         int count, i, j;
-        for (i = 0 ;i < rows ;i++){
+        for (i = 0;i < rows ;i++){
                 for (j = 0;j < cols ;j++){
                         if (isZombie(board[i][j]))
                                 count++;
@@ -106,8 +106,8 @@ int isZombie(char z){
 
 void fight(char command, char **board,char *a, char *b){
         printf("FIGHT !!\n");
-        if (command == 'n'){
-                scanf("%c, %c",a,b);
+        if (command == 'p'){
+                scanf("%c%c",a,b);
                 neurogun(board , *a, *b);
         }else{
 
