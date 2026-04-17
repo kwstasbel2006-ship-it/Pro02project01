@@ -15,7 +15,7 @@
 //alekos's varaiables
 
 typedef enum { UP, DOWN, LEFT, RIGHT } SoundDirection;
-extern SoundDirection currentsound;
+extern SoundDirection currentSound;
 extern char **board;        
 extern int rows, cols;
 extern int score;       

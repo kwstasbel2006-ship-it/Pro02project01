@@ -1,7 +1,7 @@
 #include"library.h"
 #include<stdio.h>
 
-SoundDirection currentsound;
+SoundDirection currentSound;
 char **board;        
 int rows, cols;      
 int score = 0;       
@@ -35,7 +35,7 @@ int main (void){
                 scanf("%c",&command);
                 if (isFightCommand(command)){
                     fight(toLowercase(command),board);
-                    soundThing(board);
+                    soundThing(board,currentSound);
                 }else
                     break;
             }
