@@ -9,7 +9,7 @@ int level = 1;
 
 int main (void){
     srand(time(NULL));
-    printf("helow kyrie kosta");    //alekos 2,3,5
+    printf("helow kyrie kostas");    //alekos 2,3,5
                                     //kvstas 1,4
     printf("\nwrite a to test alekos and k to test kostas\n");
     char test;
@@ -40,8 +40,9 @@ int main (void){
             while ((command != 'x')&&(countOfAliveZombies(board)>0)){
                 print(board);
                 scanf("%c",&command);
-                if (isFightCommand(command,&a,&b)){
-
+                command=toLowercase(command);
+                if (isFightCommand(command)){
+                    fight(command ,board ,&a ,&b );
                 }
             }
             freeBoard(board);

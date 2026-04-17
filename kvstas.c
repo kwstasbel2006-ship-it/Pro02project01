@@ -74,8 +74,8 @@ void freeBoard(char **board){
     free(board);
 }
 
-int isFightCommand(char command,char *a, char *b){
-    if (command == 'n'||command == 'N'||command == 'b'||command == 'B'||command == 'p'||command == 'P')
+int isFightCommand(char command){
+    if (command == 'n'|| command == 'b'||command == 'p')
         return 1;
     else
        return 0;
@@ -104,8 +104,14 @@ int isZombie(char z){
                 return 0;
 }
 
-void fight(char command, char **board){
+void fight(char command, char **board,char *a, char *b){
         printf("FIGHT !!\n");
+        if (command == 'n'){
+                scanf("%c, %c",a,b);
+                neurogun(board , *a, *b);
+        }else{
+
+        }
 }
 
 void soundThing(char **board,SoundDirection currentSound){
@@ -113,5 +119,8 @@ void soundThing(char **board,SoundDirection currentSound){
 }
 
 int validCommand(char command){
+
+}
+void neurogun(char **board ,char a,char b){
 
 }

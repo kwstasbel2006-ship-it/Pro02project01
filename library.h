@@ -32,14 +32,15 @@ void displayboard();
 //kostas's functions 
 void print(char **board);
 void freeBoard(char **board);
-int isFightCommand(char command, char *a,char *b);
+int isFightCommand(char command);
 char toLowercase(char command);
 int countOfAliveZombies(char **board);
 int isZombie(char z);
-void fight(char command, char **board);
+void fight(char command, char **board,char *a, char *b);
 void creationOfTheTestBoard();
 void soundThing(char **board,SoundDirection currentSound);
 int validCommand(char command);
 char alphabet(int i);
+void neurogun(char **board ,char a,char b);
 
 #endif
