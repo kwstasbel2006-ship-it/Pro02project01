@@ -35,7 +35,7 @@ int main (void){
         char a,b;
         while((command != 'x')&&(rows<=35)&&(cols<=35)){
             createboard();
-            //sound thing
+            //sound thing 
             //new city created
             while ((command != 'x')&&(countOfAliveZombies(board)>0)){
                 print(board);

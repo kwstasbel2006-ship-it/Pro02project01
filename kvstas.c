@@ -87,7 +87,7 @@ char toLowercase(char command){
 
 int countOfAliveZombies(char **board){
         int count, i, j;
-        for (i = 0;i < rows ;i++){
+        for (i = 0 ;i < rows ;i++){
                 for (j = 0;j < cols ;j++){
                         if (isZombie(board[i][j]))
                                 count++;
