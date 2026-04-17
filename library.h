@@ -32,7 +32,7 @@ void displayboard();
 //kostas's functions 
 void print(char **board);
 void freeBoard(char **board);
-int isFightCommand(char command);
+int isFightCommand(char command, char *a,char *b);
 char toLowercase(char command);
 int countOfAliveZombies(char **board);
 int isZombie(char z);

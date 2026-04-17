@@ -8,6 +8,7 @@ int score = 0;
 int level = 1;
 
 int main (void){
+    srand(time(NULL));
     printf("helow kyrie kosta");    //alekos 2,3,5
                                     //kvstas 1,4
     printf("\nwrite a to test alekos and k to test kostas\n");
@@ -21,11 +22,17 @@ int main (void){
         print(board);
         free_board();
     }else if(test == 'k'){    //TESTARISMATA KOSTAS
-        creationOfTheTestBoard();
+        //creationOfTheTestBoard();
+        rows=MAX_ROWS;
+        cols=MAX_COLS;
+        createboard();
+        print(board);
         freeBoard(board);
     }else{                  //the actual program 
         char command = '!';
-        creationOfTheTestBoard();
+        rows=MAX_ROWS;
+        cols=MAX_COLS;
+        char a,b;
         while((command != 'x')&&(rows<=35)&&(cols<=35)){
             createboard();
             //sound thing
@@ -33,14 +40,9 @@ int main (void){
             while ((command != 'x')&&(countOfAliveZombies(board)>0)){
                 print(board);
                 scanf("%c",&command);
-                if (validCommand(command)){
-                    if (isFightCommand(command)){
-                        fight(toLowercase(command),board);
-                        soundThing(board,currentSound);
-                    }else
-                        break;
-                }else
-                    continue;
+                if (isFightCommand(command,&a,&b)){
+
+                }
             }
             freeBoard(board);
         }

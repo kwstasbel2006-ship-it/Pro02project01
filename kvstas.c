@@ -74,7 +74,7 @@ void freeBoard(char **board){
     free(board);
 }
 
-int isFightCommand(char command){
+int isFightCommand(char command,char *a, char *b){
     if (command == 'n'||command == 'N'||command == 'b'||command == 'B'||command == 'p'||command == 'P')
         return 1;
     else
