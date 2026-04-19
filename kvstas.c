@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "library.h"
+
 void creationOfTheTestBoard(){
         int i,j;
         rows=7;
@@ -104,23 +105,11 @@ int isZombie(char z){
                 return 0;
 }
 
-void fight(char command, char **board,char *a, char *b){
-        printf("FIGHT !!\n");
-        if (command == 'p'){
-                scanf("%c%c",a,b);
-                neurogun(board , *a, *b);
-        }else{
-
-        }
-}
-
-void soundThing(char **board,SoundDirection currentSound){
-        printf("sound  movement\n");
-}
-
-int validCommand(char command){
-
-}
-void neurogun(char **board ,char a,char b){
-
+int charToNumber(char ch){
+    if (ch >= '0' && ch <= '9') {
+        return ch - '0'; 
+    }else if (ch >= 'a' && ch <= 'z') {
+        return (ch - 'a') + 10;
+    }
+    return -1;
 }

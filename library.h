@@ -36,11 +36,18 @@ int isFightCommand(char command);
 char toLowercase(char command);
 int countOfAliveZombies(char **board);
 int isZombie(char z);
-void fight(char command, char **board,char *a, char *b);
+void fight(char command, char **board);
 void creationOfTheTestBoard();
 void soundThing(char **board,SoundDirection currentSound);
 int validCommand(char command);
 char alphabet(int i);
 void neurogun(char **board ,char a,char b);
+void bomb(char **board ,char a,char b);
+void plasmagun(char **board ,char a,char b);
+int theZombieBelongsToAGroup(char **board ,char x ,char y);
+int isValidNeurogunShot(char **board, char x, char y);
+int theZombieBelongsToAGroup(char **board ,char x ,char y);
+int isSameTypeZombie(char targetedZombie, char zombie);
+int charToNumber(char ch);
 
 #endif

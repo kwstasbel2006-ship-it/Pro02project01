@@ -29,20 +29,21 @@ int main (void){
         print(board);
         freeBoard(board);
     }else{                  //the actual program 
-        char command = '!';
-        rows=MAX_ROWS;
-        cols=MAX_COLS;
-        char a,b;
+        char command = '!' ;
+        rows=5;
+        cols=5;
         while((command != 'x')&&(rows<=35)&&(cols<=35)){
             createboard();
             //sound thing 
             //new city created
             while ((command != 'x')&&(countOfAliveZombies(board)>0)){
                 print(board);
-                scanf("%c",&command);
+                while(command = getchar() != '\n' && command != EOF);
+                scanf("%c ",&command);
+                printf("%c",command);
                 command=toLowercase(command);
                 if (isFightCommand(command)){
-                    fight(command ,board ,&a ,&b );
+                    fight(command ,board);
                 }
             }
             freeBoard(board);
