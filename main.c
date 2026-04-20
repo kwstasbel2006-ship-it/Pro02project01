@@ -38,8 +38,7 @@ int main (void){
             //new city created
             while ((command != 'x')&&(countOfAliveZombies(board)>0)){
                 print(board);
-                while(command = getchar() != '\n' && command != EOF);
-                scanf("%c ",&command);
+                scanf(" %c",&command);
                 printf("%c",command);
                 command=toLowercase(command);
                 if (isFightCommand(command)){
