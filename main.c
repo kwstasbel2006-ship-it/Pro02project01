@@ -39,7 +39,7 @@ int main (void){
             while ((command != 'x')&&(countOfAliveZombies(board)>0)){
                 print(board);
                 scanf(" %c",&command);
-                printf("%c",command);
+                //printf("%c",command);
                 command=toLowercase(command);
                 if (isFightCommand(command)){
                     fight(command ,board);

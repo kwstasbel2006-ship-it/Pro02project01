@@ -41,7 +41,7 @@ void creationOfTheTestBoard();
 void soundThing(char **board,SoundDirection currentSound);
 int validCommand(char command);
 char alphabet(int i);
-void neurogun(char **board ,char a,char b);
+void neurogun(char **board ,int a,int b);
 void bomb(char **board ,char a,char b);
 void plasmagun(char **board ,char a,char b);
 int theZombieBelongsToAGroup(char **board ,char x ,char y);
@@ -49,5 +49,6 @@ int isValidNeurogunShot(char **board, char x, char y);
 int theZombieBelongsToAGroup(char **board ,char x ,char y);
 int isSameTypeZombie(char targetedZombie, char zombie);
 int charToNumber(char ch);
+int isInsideTheBoard(int x ,int y);
 
 #endif
