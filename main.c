@@ -30,8 +30,9 @@ int main (void){
         freeBoard(board);
     }else{                  //the actual program 
         char command = '!' ;
-        rows=5;
-        cols=5;
+        level = 1;
+        rows=35;
+        cols=35;
         while((command != 'x')&&(rows<=35)&&(cols<=35)){
             createboard();
             //sound thing 
@@ -45,6 +46,7 @@ int main (void){
                     fight(command ,board);
                 }
             }
+            level++ ;
             freeBoard(board);
         }
     }
