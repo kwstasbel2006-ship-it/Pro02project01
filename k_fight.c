@@ -14,7 +14,9 @@ void fight(char command, char **board){
     }else{
         int a, b;
         char tempA,tempB;
-        scanf(" %d,%d",&a ,&b);
+        scanf(" %c,%c",&tempA ,&tempB);
+        a=charToNumber(tempA);
+        b=charToNumber(tempB);
         a--;
         b--;
         if(command=='b'){
