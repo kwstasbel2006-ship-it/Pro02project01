@@ -5,6 +5,8 @@
 
 #define MIN_ROWS 5
 #define MIN_COLS 5
+#define MAX_ROWS 20
+#define MAX_COLS 20
 
 void createboard() //δημιουργία ταμπλό
 {
@@ -43,21 +45,21 @@ void free_board() //απελευθέρωση μνήμης απο τον πίνα
 
 void displayboard() // Εμφάνιση του ταμπλό
 {
-    printf("\n--- ΕΠΙΠΕΔΟ %d | ΣΚΟΡ: %d ---\n", level, score);
+    printf("\n--- EPIPEDO %d | SCORE: %d ---\n", level, score);
     printf("    "); // Εμφάνιση κενής γραμμής για σωστή στοίχιση
     for (int j = 0; j < cols; j++) // Εμφάνιση αριθμών στηλών
     {
-         printf("%2d _ ", j);
-         printf("\n");
+         printf("%2d ", j);
     }
+    printf("\n");
     for (int i = 0; i < rows; i++) // Εμφάνιση αριθμών γραμμών
     {
         printf("%2d |", i);
         for (int j = 0; j < cols; j++) // Εμφάνιση περιεχομένου του ταμπλό
         {
             printf(" %c ", board[i][j]); 
-            printf("\n");
         }
+    printf("\n");
     
     }
 }
