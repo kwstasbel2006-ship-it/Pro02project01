@@ -30,21 +30,29 @@ int main (void){
         freeBoard(board);
     }else{                  //the actual program 
         char command = '!' ;
+        int scanCheck;
+        int clearTheKeyboard;
         level = 1;
         rows=35;
         cols=35;
+        while ((clearTheKeyboard = getchar()) != '\n' && clearTheKeyboard != EOF);
+        
         while((command != 'x')&&(rows<=35)&&(cols<=35)){
             createboard();
             //sound thing 
             //new city created
             while ((command != 'x')&&(countOfAliveZombies(board)>0)){
                 print(board);
-                scanf(" %c",&command);
+                scanCheck = scanf(" %c",&command);
                 //printf("%c",command);
                 command=toLowercase(command);
-                if (isFightCommand(command)){
+                if (scanCheck == 1 && isFightCommand(command)){
                     fight(command ,board);
+                }else {
+                    printf("Not valid command try again");
+                    while ((clearTheKeyboard = getchar()) != '\n' && clearTheKeyboard != EOF);
                 }
+                while ((clearTheKeyboard = getchar()) != '\n' && clearTheKeyboard != EOF);
             }
             level++ ;
             freeBoard(board);

@@ -46,9 +46,12 @@ void bomb(char **board ,char a,char b);
 void plasmagun(char **board ,char a,char b);
 int theZombieBelongsToAGroup(char **board ,char x ,char y);
 int isValidNeurogunShot(char **board, char x, char y);
+int thereIsSomeValidNeurogunShot(char **board);
 int theZombieBelongsToAGroup(char **board ,char x ,char y);
 int isSameTypeZombie(char targetedZombie, char zombie);
 int charToNumber(char ch);
 int isInsideTheBoard(int x ,int y);
+int isValidPlasmagunCommand(char direction,char x);
+
 
 #endif

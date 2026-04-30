@@ -5,12 +5,17 @@
 void fight(char command, char **board){
     printf("FIGHT !!\n");
     char ch;
+    int scanCheck;
     if (command == 'p'){
         char a, tempB;
         int b;
-        scanf(" %c%d",&a,&b);
-        b--;
-        plasmagun(board , a, b);
+        scanCheck = scanf(" %c%d",&a,&b);
+        if (scanCheck==2 && isValidPlasmagunCommand(a,b)){
+            b--;
+            plasmagun(board , a, b);
+        }else {
+            printf("error");
+        }
     }else{
         int a, b;
         char tempA,tempB;
@@ -96,6 +101,22 @@ int isValidNeurogunShot(char **board, char x, char y){
     }
     return 0;
 }
+
+int thereIsSomeValidNeurogunShot(char **board){
+    int i,j;
+    for(i=0; i<rows; i++){
+        for(j=0; j<cols; j++){
+            if(isValidNeurogunShot(board,i,j))
+                return 1;
+        }
+    }
+    return 0;
+}
+
+int isValidPlasmagunCommand(char direction,char x){
+    
+}
+
 
 int isInsideTheBoard(int x ,int y){
     if (x>=0 && x<= rows-1){
