@@ -5,8 +5,14 @@
 
 #define MIN_ROWS 5
 #define MIN_COLS 5
-#define MAX_ROWS 20
-#define MAX_COLS 20
+#define MAX_ROWS 35
+#define MAX_COLS 35
+
+/*char **board;        
+int rows, cols;      
+int score = 0;     
+int level = 1;       
+SoundDirection current_sound;*/ 
 
 void createboard() //δημιουργία ταμπλό
 {
@@ -14,30 +20,30 @@ void createboard() //δημιουργία ταμπλό
     for (int i = 0; i < rows; i++) 
     {
         board[i] = (char *)malloc(cols * sizeof(char));
-        for (int j = 0; j < cols; j++) 
+        for (int j=0; j<cols; j++) 
         {
             double probabilities = 0.20; // Βασική πιθανότητα 20%
-            if ((j > 0 && board[i][j-1] == '#') || (i > 0 && board[i-1][j] == '#')) 
+            if ((j>0 && board[i][j-1] == '#') || (i>0 && board[i-1][j] == '#')) 
             {
-                probabilities = 0.40; // Αν υπάρχει γείτονας, το όριο γίνεται 40%
+                probabilities=0.40; 
             }
-            double r = (double)rand() / RAND_MAX; 
-            if (r < probabilities) 
+            double r=(double)rand() / RAND_MAX; 
+            if (r<probabilities) 
             {
                 board[i][j] = '#'; 
             }
             else
-                board[i][j] = (rand() % 9 + 1) + '0'; // 80% πιθανότητα για zombie
+                board[i][j]=(rand()%9+1)+'0'; // 80% πιθανότητα για zombie
 
         }
     }
-    currentsound = rand() % 4; // Τυχαία κατεύθυνση ήχου
+    currentsound=rand()%4; // Τυχαία κατεύθυνση ήχου
 
 }
 
 void free_board() //απελευθέρωση μνήμης απο τον πίνακα
 {
-    for (int i =0; i <rows; i++)
+    for (int i=0; i<rows; i++)
         free(board[i]); // Απελευθέρωση κάθε γραμμής
     free(board); //απελευθέρωση κάθε διεύθυνσης που οδηγούν στις γραμμές
 
@@ -47,22 +53,54 @@ void displayboard() // Εμφάνιση του ταμπλό
 {
     printf("\n--- EPIPEDO %d | SCORE: %d ---\n", level, score);
     printf("    "); // Εμφάνιση κενής γραμμής για σωστή στοίχιση
-    for (int j = 0; j < cols; j++) // Εμφάνιση αριθμών στηλών
+    for (int j=0; j<cols; j++) // Εμφάνιση αριθμών στηλών
     {
          printf("%2d ", j);
     }
     printf("\n");
-    for (int i = 0; i < rows; i++) // Εμφάνιση αριθμών γραμμών
+    for (int i=0; i<rows; i++) // Εμφάνιση αριθμών γραμμών 
     {
         printf("%2d |", i);
-        for (int j = 0; j < cols; j++) // Εμφάνιση περιεχομένου του ταμπλό
+        for (int j=0; j<cols; j++) // Εμφάνιση περιεχομένου του ταμπλό
         {
-            printf(" %c ", board[i][j]); 
+            printf("%c", board[i][j]); 
         }
     printf("\n");
     
     }
 }
+
+void level_up (char ***board, int *rows, int *cols, int *level) 
+{
+    int zombies_found=0;
+    for (int i=0; i<*rows; i++) 
+    {
+        for (int j=0; j<*cols; j++) 
+        {
+            if ((*board)[i][j]>='1' && (*board)[i][j]<='9') 
+            {
+                zombies_found=1;
+                break; 
+            }
+        }
+        if (zombies_found) break;
+    }
+
+    if (zombies_found==0)
+    {
+        printf("\n--- GOOD JOB, LEVEL UP! ---\n");
+            
+        free_board(*board, *rows);
+
+        (*level)++;
+        (*rows)++;
+        (*cols)++;
+
+        *board= create_board(*rows, *cols);
+    }
+}
+
+
     
 
 
