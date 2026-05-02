@@ -41,7 +41,6 @@ int main (void){
             createboard();
             //sound thing 
             //new city created
-            currentSound = 1;
             while ((command != 'x')&&(countOfAliveZombies(board)>0)){
                 print(board);
                 scanCheck = scanf(" %c",&command);
