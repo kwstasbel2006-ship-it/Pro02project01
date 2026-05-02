@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "library.h"
+
 void creationOfTheTestBoard(){
         int i,j;
         rows=7;
@@ -39,9 +40,9 @@ void print(char **board)
         printf("\n");
 
         int j, i;
-        printf("     ");
+        printf("(x\\y)");
         for (j = 0;j < cols ;j++)
-                printf("%3c",j+65);
+                printf("%3c",alphabet(j+1));
         printf("\n");
 
 
@@ -51,12 +52,19 @@ void print(char **board)
         printf("\n");
 
         for (i = 0;i < rows ;i++){
-                printf("%2d  |", i+1);
+                printf("%2c  |",alphabet(i+1));
                 for (j = 0;j < cols ;j++)
                         printf("%3c", board[i][j]);
                 printf("\n");
         }
         printf("\n");
+}
+
+char alphabet(int i){
+        if ((i>=0)&&(i<=9)){
+                return i+'0';
+        }else
+                return i-10+'A';
 }
 
 void freeBoard(char **board){
@@ -68,7 +76,7 @@ void freeBoard(char **board){
 }
 
 int isFightCommand(char command){
-    if (command == 'n'||command == 'N'||command == 'b'||command == 'B'||command == 'p'||command == 'P')
+    if (command == 'n'|| command == 'b'||command == 'p')
         return 1;
     else
        return 0;
@@ -79,7 +87,7 @@ char toLowercase(char command){
 }
 
 int countOfAliveZombies(char **board){
-        int count, i, j;
+        int count=0 , i, j;
         for (i = 0;i < rows ;i++){
                 for (j = 0;j < cols ;j++){
                         if (isZombie(board[i][j]))
@@ -97,6 +105,12 @@ int isZombie(char z){
                 return 0;
 }
 
-void fight(char command, char **board){
-        printf("FIGHT !!");
-} 
+int charToNumber(char ch){
+        if (ch >= '0' && ch <= '9')
+                return ch - '0'; 
+        ch = toLowercase(ch);
+        if (ch >= 'a' && ch <= 'z') {
+                return (ch - 'a') + 10;
+        }
+        return -1;
+}

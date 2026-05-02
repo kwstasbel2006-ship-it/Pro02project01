@@ -12,10 +12,10 @@
 #define MIN_COLS 5
 #define MAX_ROWS 35
 #define MAX_COLS 35
-//alekos's varaiables
+//alekos's variables
 
 typedef enum { UP, DOWN, LEFT, RIGHT } SoundDirection;
-extern SoundDirection currentsound;
+extern SoundDirection currentSound;
 extern char **board;        
 extern int rows, cols;
 extern int score;       
@@ -38,5 +38,22 @@ int countOfAliveZombies(char **board);
 int isZombie(char z);
 void fight(char command, char **board);
 void creationOfTheTestBoard();
+void soundThing(char **board,SoundDirection currentSound);
+int validCommand(char command);
+char alphabet(int i);
+void neurogun(char **board ,int a,int b);
+void bomb(char **board ,char a,char b);
+void plasmagun(char **board ,char a,char b);
+int theZombieBelongsToAGroup(char **board ,char x ,char y);
+int isValidNeurogunShot(char **board, char x, char y);
+int thereIsSomeValidNeurogunShot(char **board);
+int theZombieBelongsToAGroup(char **board ,char x ,char y);
+int isSameTypeZombie(char targetedZombie, char zombie);
+int charToNumber(char ch);
+int isInsideTheBoard(int x ,int y);
+int isValidPlasmagunCommand(char direction, int x);
+void bombShot(char **board, char x, char y);
 
+
+extern const char* soundNames[];
 #endif
