@@ -33,10 +33,8 @@ int main (void){
         int scanCheck;
         int clearTheKeyboard;
         level = 1;
-        rows=35;
-        cols=35;
-        while ((clearTheKeyboard = getchar()) != '\n' && clearTheKeyboard != EOF);
-        
+        rows=7;
+        cols=7;        
         while((command != 'x')&&(rows<=35)&&(cols<=35)){
             createboard();
             //sound thing 
@@ -48,11 +46,14 @@ int main (void){
                 command=toLowercase(command);
                 if (scanCheck == 1 && isFightCommand(command)){
                     fight(command ,board);
+                    print(board);
+                    soundThing(board,currentSound);
+                }else if(command == 'x'){
+                    break;
                 }else {
-                    printf("Not valid command try again");
+                    printf("Not valid command try again\n");
                     while ((clearTheKeyboard = getchar()) != '\n' && clearTheKeyboard != EOF);
                 }
-                while ((clearTheKeyboard = getchar()) != '\n' && clearTheKeyboard != EOF);
             }
             level++ ;
             freeBoard(board);

@@ -51,7 +51,7 @@ int theZombieBelongsToAGroup(char **board ,char x ,char y);
 int isSameTypeZombie(char targetedZombie, char zombie);
 int charToNumber(char ch);
 int isInsideTheBoard(int x ,int y);
-int isValidPlasmagunCommand(char direction,char x);
-
+int isValidPlasmagunCommand(char direction, int x);
+void bombShot(char **board, char x, char y);
 
 #endif
