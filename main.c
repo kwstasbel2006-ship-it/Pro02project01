@@ -7,6 +7,8 @@ int rows, cols;
 int score = 0;       
 int level = 1;
 
+const char* soundNames[] = {"UP", "DOWN", "LEFT", "RIGHT"};
+
 int main (void){
     srand(time(NULL));
     printf("helow kyrie kostas");    //alekos 2,3,5
@@ -39,6 +41,7 @@ int main (void){
             createboard();
             //sound thing 
             //new city created
+            currentSound = 1;
             while ((command != 'x')&&(countOfAliveZombies(board)>0)){
                 print(board);
                 scanCheck = scanf(" %c",&command);

@@ -54,4 +54,6 @@ int isInsideTheBoard(int x ,int y);
 int isValidPlasmagunCommand(char direction, int x);
 void bombShot(char **board, char x, char y);
 
+
+extern const char* soundNames[];
 #endif
