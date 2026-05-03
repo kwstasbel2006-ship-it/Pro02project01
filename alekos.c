@@ -17,7 +17,7 @@ SoundDirection current_sound;*/
 void createboard() //δημιουργία ταμπλό
 {
     board = (char **)malloc(rows * sizeof(char *));
-    for (int i = 0; i < rows; i++) 
+    for (int i=0; i<rows; i++) 
     {
         board[i] = (char *)malloc(cols * sizeof(char));
         for (int j=0; j<cols; j++) 
@@ -33,7 +33,7 @@ void createboard() //δημιουργία ταμπλό
                 board[i][j] = '#'; 
             }
             else
-                board[i][j]=(rand()%9+1)+'0'; // 80% πιθανότητα για zombie
+                board[i][j]=(rand()%9+1) + '0'; // 80% πιθανότητα για zombie
 
         }
     }
@@ -53,12 +53,12 @@ void displayboard() // Εμφάνιση του ταμπλό
 {
     printf("\n--- EPIPEDO %d | SCORE: %d ---\n", level, score);
     printf("    "); // Εμφάνιση κενής γραμμής για σωστή στοίχιση
-    for (int j=0; j<cols; j++) // Εμφάνιση αριθμών στηλών
+    for (int j=0; j<cols; j++) 
     {
          printf("%2d ", j);
     }
     printf("\n");
-    for (int i=0; i<rows; i++) // Εμφάνιση αριθμών γραμμών 
+    for (int i=0; i<rows; i++)  
     {
         printf("%2d |", i);
         for (int j=0; j<cols; j++) // Εμφάνιση περιεχομένου του ταμπλό
@@ -79,11 +79,11 @@ void level_up (char ***board, int *rows, int *cols, int *level)
         {
             if ((*board)[i][j]>='1' && (*board)[i][j]<='9') 
             {
-                zombies_found=1;
+                zombies_found==1;
                 break; 
             }
         }
-        if (zombies_found) break;
+        if (zombies_found==1) break;
     }
 
     if (zombies_found==0)
@@ -96,8 +96,32 @@ void level_up (char ***board, int *rows, int *cols, int *level)
         (*rows)++;
         (*cols)++;
 
-        *board= create_board(*rows, *cols);
+        *board= createboard(*rows, *cols);
     }
+}
+
+int calculate_move_score(int zombies_killed, int level)
+{
+    return (zombies_killed * zombies_killed) * level;
+}
+
+if (command == 'x' || command == 'X') {
+    printf("\n==========================================\n");
+    printf("        PLAYER REPORT               \n");
+    printf("============================================\n");
+    printf("earned levels: %d\n", level-1);
+    printf("total score: %d\n", total_score); //αρχικοποιηση στην main το total score
+    printf("------------------------------------------\n");
+    
+
+    printf("You are running out of power...\n");
+    printf("The guns are emptying and the darkness is approaching..\n"); 
+    printf("bye player, i hope you comeback again:)\n");
+    printf("==========================================\n");
+    
+
+    free_board(board, rows);
+    exit(0); 
 }
 
 
