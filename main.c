@@ -35,19 +35,29 @@ int main (void){
         int scanCheck;
         int clearTheKeyboard;
         level = 1;
-        rows=7;
-        cols=7;        
-        while((command != 'x')&&(rows<=35)&&(cols<=35)){
+        rows=MIN_ROWS;
+        cols=MIN_COLS;
+        printf("\n========================================\n");
+        printf("         THE OUTBREAK HAS BEGUN\n");
+        printf("             LEVEL 1 START\n");
+        printf("=========================================\n");
+        while((command != 'x')&&(rows<=MAX_ROWS)&&(cols<=MAX_COLS)){
             createboard();
+            printf("\n>>> The wind is howling %s through the empty streets...\n", soundNames[currentSound]);
+            printf(">>> Any loud noises will draw the horde %s.\n", soundNames[currentSound]);
             //sound thing 
             //new city created
             while ((command != 'x')&&(countOfAliveZombies(board)>0)){
                 print(board);
+                
+                printf("\nCOMMANDS: [n x,y] Neurogun | [b x,y] Bomb | [p l/r/u/d x] Plasma | [x] Quit\n");
+                printf("Make your move Commander: ");
+
                 scanCheck = scanf(" %c",&command);
                 //printf("%c",command);
                 command=toLowercase(command);
                 if (scanCheck == 1 && isFightCommand(command)){
-                    fight(command ,board);
+                    score += fight(command ,board);
                     print(board);
                     soundThing(board,currentSound);
                 }else if(command == 'x'){
@@ -57,9 +67,22 @@ int main (void){
                     while ((clearTheKeyboard = getchar()) != '\n' && clearTheKeyboard != EOF);
                 }
             }
-            level++ ;
             freeBoard(board);
+            
+            if (command != 'x'){
+                level++ ;
+                printf("\n========================================\n");
+                printf("         CITY SECTOR CLEARED!\n");
+                printf("  The military is moving you to a larger\n  and more dangerous sector...\n");
+                printf("              Get ready.\n");
+                printf("            MOVE TO LEVEL %d\n", level);
+                printf("========================================\n\n");
+            }
+            rows++ ;
+            cols++ ;
         }
+
+        dramaticEndOfGame(command);
     }
     
     return 0;
