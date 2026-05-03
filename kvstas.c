@@ -2,41 +2,8 @@
 #include <stdlib.h>
 #include "library.h"
 
-void creationOfTheTestBoard(){
-        int i,j;
-        rows=7;
-        cols=8;
-        board = malloc((7)*sizeof(char*));
-        if(board==NULL)
-                printf("ERROR 1");
-        for(i=0;i<rows;i++)
-        {
-                board[i]=malloc((cols)*sizeof(char*));
-                if(board[i]==NULL)
-                        printf("ERROR 1");
-        }
-
-        char template[7][8] = {
-            {'2','2','1','9','8','4','8','3'},
-            {'6','#','#','7','6','8','2','8'},
-            {'8','4','#','1','8','3','8','5'},
-            {'3','1','6','3','8','2','5','8'},
-            {'9','3','4','3','7','#','#','8'},
-            {'#','#','3','3','7','#','#','4'},
-            {'1','6','3','5','7','4','3','1'}
-        };
-        
-        for(i = 0; i < rows ; i++) {
-            for(j = 0; j < cols ; j++) {
-                board[i][j] = template[i][j];
-            }
-        }
-        
-        print(board);
-}
 void print(char **board)
 {
-        printf("\n");
         printf("\n");
 
         int j, i;
@@ -113,4 +80,62 @@ int charToNumber(char ch){
                 return (ch - 'a') + 10;
         }
         return -1;
+}
+
+
+void creationOfTheTestBoard(){
+        int i,j;
+        rows=7;
+        cols=8;
+        board = malloc((7)*sizeof(char*));
+        if(board==NULL)
+                printf("ERROR 1");
+        for(i=0;i<rows;i++)
+        {
+                board[i]=malloc((cols)*sizeof(char*));
+                if(board[i]==NULL)
+                        printf("ERROR 1");
+        }
+
+        char template[7][8] = {
+            {'2','2','1','9','8','4','8','3'},
+            {'6','#','#','7','6','8','2','8'},
+            {'8','4','#','1','8','3','8','5'},
+            {'3','1','6','3','8','2','5','8'},
+            {'9','3','4','3','7','#','#','8'},
+            {'#','#','3','3','7','#','#','4'},
+            {'1','6','3','5','7','4','3','1'}
+        };
+        
+        for(i = 0; i < rows ; i++) {
+            for(j = 0; j < cols ; j++) {
+                board[i][j] = template[i][j];
+            }
+        }
+        
+        print(board);
+}
+
+void dramaticEndOfGame(char command){
+        printf("\n================================================\n");
+        printf("               END OF THE GAME\n");
+        printf("===============================================\n");
+        
+        if (command == 'x') {
+                printf("You chose to escape the fight... :( \n");
+                printf("The zombies continue to run the entire earth.\n");
+                printf("Humanity's last hope was YOU \n");
+                printf("And now you fade into the FEARRr...\n");
+        } else {
+                printf("CONGRATULATIONS! You just eradicated the zombie outbreak!\n");
+                printf("The hole planet are finally safe from the undead menace.\n");
+                printf("Now humanity can return to normal, and safely proceed\n");
+                printf("to destroy itself with World War III...\n");
+                printf("        DAN DAN DAN...\n");
+        }
+        printf("--------------------------------------------------\n");
+        printf("GAME INFO :\n");
+        printf("Levels Completed  : %d\n", level - 1);
+        printf("Final Score       : %d\n", score);
+        printf("--------------------------------------------------\n");
 }
