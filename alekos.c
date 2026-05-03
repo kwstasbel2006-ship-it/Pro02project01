@@ -96,33 +96,35 @@ void level_up (char ***board, int *rows, int *cols, int *level)
         (*rows)++;
         (*cols)++;
 
-        *board= createboard(*rows, *cols);
+        createboard();
     }
 }
 
 int calculate_move_score(int zombies_killed, int level)
 {
+    int total_score, command;
+    if (command == 'x' || command == 'X') {
+        printf("\n==========================================\n");
+        printf("        PLAYER REPORT               \n");
+        printf("============================================\n");
+        printf("earned levels: %d\n", level-1);
+        printf("total score: %d\n", total_score); //αρχικοποιηση στην main το total score
+        printf("------------------------------------------\n");
+
+
+        printf("You are running out of power...\n");
+        printf("The guns are emptying and the darkness is approaching..\n"); 
+        printf("bye player, i hope you comeback again:)\n");
+        printf("==========================================\n");
+
+
+        free_board(board, rows);
+        exit(0); 
+    }
+
     return (zombies_killed * zombies_killed) * level;
 }
 
-if (command == 'x' || command == 'X') {
-    printf("\n==========================================\n");
-    printf("        PLAYER REPORT               \n");
-    printf("============================================\n");
-    printf("earned levels: %d\n", level-1);
-    printf("total score: %d\n", total_score); //αρχικοποιηση στην main το total score
-    printf("------------------------------------------\n");
-    
-
-    printf("You are running out of power...\n");
-    printf("The guns are emptying and the darkness is approaching..\n"); 
-    printf("bye player, i hope you comeback again:)\n");
-    printf("==========================================\n");
-    
-
-    free_board(board, rows);
-    exit(0); 
-}
 
 
     
