@@ -10,12 +10,15 @@
 #define MAX_ROWS 35
 #define MAX_COLS 35
 
+
+#define STARTINGSIZE MIN_ROWS
+
 //alekos's variables
 typedef enum { UP, DOWN, LEFT, RIGHT } SoundDirection;
 
 //alekos's functions
 
-void createboard();
+void createboard(int z);
 void free_board();
 void displayboard();
 
@@ -48,6 +51,7 @@ int bombShot(char **board, char x, char y);
 void dramaticEndOfGame(char command);
 int scoreFunction(int numOfTheDeadZombies, int basicScore);
 int isValidBombShot(char **board,int a, int b);
+void playerReport(void);
 
 //kostas variables
 const char* soundNames[];
@@ -62,80 +66,93 @@ const char* soundNames[] = {"UP", "DOWN", "LEFT", "RIGHT"};
 
 int main (void){
     srand(time(NULL));
-    printf("helow kyrie kostas");    //alekos 2,3,5
-                                    //kvstas 1,4
-    printf("\nwrite a to test alekos and k to test kostas\n");
-    char test;
-    scanf("%c",&test);
-    if(test == 'a'){          //TESTARISMATA ALEKOS
-        rows=7;
-        cols=8;
-        createboard();
-        displayboard();
-        print(board);
-        free_board();
-    }else if(test == 'k'){    //TESTARISMATA KOSTAS
-        //creationOfTheTestBoard();
-        rows=MAX_ROWS;
-        cols=MAX_COLS;
-        createboard();
-        print(board);
-        freeBoard(board);
-    }else{                  //the actual program 
-        char command = '!' ;
-        int scanCheck;
-        int clearTheKeyboard;
-        level = 1;
-        rows=MIN_ROWS;
-        cols=MIN_COLS;
-        printf("\n========================================\n");
-        printf("         THE OUTBREAK HAS BEGUN\n");
-        printf("             LEVEL 1 START\n");
-        printf("=========================================\n");
-        while((command != 'x')&&(rows<=MAX_ROWS)&&(cols<=MAX_COLS)){
-            createboard();
-            printf("\n>>> The wind is howling %s through the empty streets...\n", soundNames[currentSound]);
-            printf(">>> Any loud noises will draw the horde %s.\n", soundNames[currentSound]);
-            //sound thing 
-            //new city created
-            while ((command != 'x')&&(countOfAliveZombies(board)>0)){
-                print(board);
-                
-                printf("\nCOMMANDS: [n x,y] Neurogun | [b x,y] Bomb | [p l/r/u/d x] Plasma | [x] Quit\n");
-                printf("Make your move Commander: ");
 
-                scanCheck = scanf(" %c",&command);
-                //printf("%c",command);
-                command=toLowercase(command);
-                if (scanCheck == 1 && isFightCommand(command)){
-                    score += fight(command ,board);
-                    print(board);
-                    soundThing(board,currentSound);
-                }else if(command == 'x'){
-                    break;
-                }else {
-                    printf("Not valid command try again\n");
-                    while ((clearTheKeyboard = getchar()) != '\n' && clearTheKeyboard != EOF);
-                }
-            }
-            freeBoard(board);
-            
-            if (command != 'x'){
-                level++ ;
-                printf("\n========================================\n");
-                printf("         CITY SECTOR CLEARED!\n");
-                printf("  The military is moving you to a larger\n  and more dangerous sector...\n");
-                printf("              Get ready.\n");
-                printf("            MOVE TO LEVEL %d\n", level);
-                printf("========================================\n\n");
-            }
-            rows++ ;
-            cols++ ;
+    //the actual program 
+    char command = '!' ;
+    int scanCheck;
+    int clearTheKeyboard;
+    level = 1;
+    rows=STARTINGSIZE;
+    cols=STARTINGSIZE;
+
+
+    printf("Please give the starting size of the board N,M: ");
+    do {
+        scanCheck = scanf("%d,%d", &rows, &cols);
+        if (scanCheck != 2) {
+            while ((clearTheKeyboard = getchar()) != '\n' && clearTheKeyboard != EOF);
         }
 
-        dramaticEndOfGame(command);
-    }
+        if (scanCheck != 2 || rows > MAX_ROWS || rows < MIN_ROWS || cols > MAX_COLS || cols < MIN_COLS) {
+            printf("Invalid input! Please enter values between %d and %d (digits): ", MIN_ROWS, MAX_ROWS);
+        }
+
+    } while (scanCheck != 2 || rows > MAX_ROWS || rows < MIN_ROWS || cols > MAX_COLS || cols < MIN_COLS);
+    int z;
+
+    printf("Please give the nummber of diferent zombies: ");
     
+    do {
+        scanCheck = scanf("%d", &z);
+        if (scanCheck == 0) {
+            while ((clearTheKeyboard = getchar()) != '\n' && clearTheKeyboard != EOF);
+        }
+
+        if (scanCheck == 0 || z > 9 || z < 1) {
+            printf("Invalid input! Please enter values between 1 and 9 (digits): ");
+        }
+
+    } while (scanCheck == 0 || z > 9 || z < 1);
+    
+
+    printf("\n========================================\n");
+    printf("         THE OUTBREAK HAS BEGUN\n");
+    printf("             LEVEL 1 START\n");
+    printf("=========================================\n");
+    while((command != 'x')&&(rows<=MAX_ROWS)&&(cols<=MAX_COLS)){
+        createboard(z);
+        printf("\n>>> The wind is howling %s through the empty streets...\n", soundNames[currentSound]);
+        printf(">>> Any loud noises will draw the horde %s.\n", soundNames[currentSound]);
+        //sound thing 
+        //new city created
+        while ((command != 'x')&&(countOfAliveZombies(board)>0)){
+            print(board);
+            
+            printf("\nCOMMANDS: [n x,y] Neurogun | [b x,y] Bomb | [p l/r/u/d x] Plasma | [x] Quit\n");
+            printf("Make your move Commander: ");
+
+            scanCheck = scanf(" %c",&command);
+            //printf("%c",command);
+            command=toLowercase(command);
+            if (scanCheck == 1 && isFightCommand(command)){
+                score += fight(command ,board);
+                print(board);
+                soundThing(board,currentSound);
+            }else if(command == 'x'){
+                break;
+            }else {
+                printf("Not valid command try again\n");
+                while ((clearTheKeyboard = getchar()) != '\n' && clearTheKeyboard != EOF);
+            }
+        }
+        freeBoard(board);
+        
+        if (command != 'x'){
+            level++ ;
+            printf("\n========================================\n");
+            printf("         CITY SECTOR CLEARED!\n");
+            printf("  The military is moving you to a larger\n  and more dangerous sector...\n");
+            printf("              Get ready.\n");
+            printf("            MOVE TO LEVEL %d\n", level);
+            printf("========================================\n\n");
+
+            playerReport();
+        }
+        rows++ ;
+        cols++ ;
+    }
+
+    dramaticEndOfGame(command);    
     return 0;
 }
 
@@ -145,7 +162,7 @@ int main (void){
 //========================================
 //==============  alekos  ================
 
-void createboard() //δημιουργία ταμπλό
+void createboard(int z) //δημιουργία ταμπλό
 {
     board = (char **)malloc(rows * sizeof(char *));
     for (int i=0; i<rows; i++) 
@@ -164,7 +181,7 @@ void createboard() //δημιουργία ταμπλό
                 board[i][j] = '#'; 
             }
             else
-                board[i][j]=(rand()%9+1) + '0'; // 80% πιθανότητα για zombie
+                board[i][j]=(rand()%z+1) + '0'; // 80% πιθανότητα για zombie
 
         }
     }
@@ -201,64 +218,65 @@ void displayboard() // Εμφάνιση του ταμπλό
     }
 }
 
-void level_up (char ***board, int *rows, int *cols, int *level) 
-{
-    int zombies_found=0;
-    for (int i=0; i<*rows; i++) 
-    {
-        for (int j=0; j<*cols; j++) 
-        {
-            if ((*board)[i][j]>='1' && (*board)[i][j]<='9') 
-            {
-                zombies_found==1;
-                break; 
-            }
-        }
-        if (zombies_found==1) break;
-    }
+// void level_up (char ***board, int *rows, int *cols, int *level) 
+// {
+//     int zombies_found=0;
+//     for (int i=0; i<*rows; i++) 
+//     {
+//         for (int j=0; j<*cols; j++) 
+//         {
+//             if ((*board)[i][j]>='1' && (*board)[i][j]<='9') 
+//             {
+//                 zombies_found==1;
+//                 break; 
+//             }
+//         }
+//         if (zombies_found==1) break;
+//     }
 
-    if (zombies_found==0)
-    {
-        printf("\n--- GOOD JOB, LEVEL UP! ---\n");
+//     if (zombies_found==0)
+//     {
+//         printf("\n--- GOOD JOB, LEVEL UP! ---\n");
             
-        free_board(*board, *rows);
+//         free_board(*board, *rows);
 
-        (*level)++;
-        (*rows)++;
-        (*cols)++;
+//         (*level)++;
+//         (*rows)++;
+//         (*cols)++;
 
-        createboard();
-    }
-}
+//         createboard();
+//     }
+//}
 
-int calculate_move_score(int zombies_killed, int level)
-{
-    int total_score, command;
-    if (command == 'x' || command == 'X') {
-        printf("\n==========================================\n");
-        printf("        PLAYER REPORT               \n");
-        printf("============================================\n");
-        printf("earned levels: %d\n", level-1);
-        printf("total score: %d\n", total_score); //αρχικοποιηση στην main το total score
-        printf("------------------------------------------\n");
-
-
-        printf("You are running out of power...\n");
-        printf("The guns are emptying and the darkness is approaching..\n"); 
-        printf("bye player, i hope you comeback again:)\n");
-        printf("==========================================\n");
-
-
-        free_board(board, rows);
-        exit(0); 
-    }
-
-    return (zombies_killed * zombies_killed) * level;
+int totalScoreFunction(int numOfKills){
+    return (numOfKills * numOfKills) * level;
 }
 
 
+// int calculate_move_score(int zombies_killed, int level)
+// {
+//     int total_score, command;
+//         printf("\n==========================================\n");
+//         printf("        PLAYER REPORT               \n");
+//         printf("============================================\n");
+//     if (command == 'x' || command == 'X') {
+//         printf("earned levels: %d\n", level-1);
+//         printf("total score: %d\n", total_score); //αρχικοποιηση στην main το total score
+//         printf("------------------------------------------\n");
 
-    
+
+//         printf("You are running out of power...\n");
+//         printf("The guns are emptying and the darkness is approaching..\n"); 
+//         printf("bye player, i hope you comeback again:)\n");
+//         printf("==========================================\n");
+
+
+//         free_board(board, rows);
+//         exit(0); 
+//     }
+
+//     return (zombies_killed * zombies_killed) * level;
+// }
 
 
 //=========================================================
@@ -350,30 +368,37 @@ printf("\n>>> WARNING: Acoustic sensors triggered. Horde migration: %s <<<\n", s
         break;
     }
 }
-
 void print(char **board)
 {
-        printf("\n");
+    printf("\n");
 
-        int j, i;
-        printf("(x\\y)");
-        for (j = 0;j < cols ;j++)
-                printf("%3c",alphabet(j+1));
-        printf("\n");
+    int j, i;
+    printf("(x\\y)");
+    for (j = 0; j < cols; j++)
+        printf("%3c", alphabet(j + 1));
+    printf("\n");
 
+    printf("------");
+    for (j = 0; j < cols; j++)
+        printf("---");
+    printf("\n");
 
-        printf("------");
-        for (j = 0;j < cols ;j++)
-                printf("---");
-        printf("\n");
-
-        for (i = 0;i < rows ;i++){
-                printf("%2c  |",alphabet(i+1));
-                for (j = 0;j < cols ;j++)
-                        printf("%3c", board[i][j]);
-                printf("\n");
+    for (i = 0; i < rows; i++) {
+        printf("%2c  |", alphabet(i + 1));
+        for (j = 0; j < cols; j++) {
+            if (board[i][j] == '#') {
+                printf("\033[0;31m%3c\033[0m", board[i][j]);
+            } 
+            else if (isZombie(board[i][j])) {
+                printf("\033[0;32m%3c\033[0m", board[i][j]);
+            }
+            else {
+                printf("%3c", board[i][j]);
+            }
         }
         printf("\n");
+    }
+    printf("\n");
 }
 
 char alphabet(int i){
@@ -432,39 +457,6 @@ int charToNumber(char ch){
 }
 
 
-void creationOfTheTestBoard(){
-        int i,j;
-        rows=7;
-        cols=8;
-        board = malloc((7)*sizeof(char*));
-        if(board==NULL)
-                printf("ERROR 1");
-        for(i=0;i<rows;i++)
-        {
-                board[i]=malloc((cols)*sizeof(char*));
-                if(board[i]==NULL)
-                        printf("ERROR 1");
-        }
-
-        char template[7][8] = {
-            {'2','2','1','9','8','4','8','3'},
-            {'6','#','#','7','6','8','2','8'},
-            {'8','4','#','1','8','3','8','5'},
-            {'3','1','6','3','8','2','5','8'},
-            {'9','3','4','3','7','#','#','8'},
-            {'#','#','3','3','7','#','#','4'},
-            {'1','6','3','5','7','4','3','1'}
-        };
-        
-        for(i = 0; i < rows ; i++) {
-            for(j = 0; j < cols ; j++) {
-                board[i][j] = template[i][j];
-            }
-        }
-        
-        print(board);
-}
-
 void dramaticEndOfGame(char command){
         printf("\n================================================\n");
         printf("               END OF THE GAME\n");
@@ -475,6 +467,7 @@ void dramaticEndOfGame(char command){
                 printf("The zombies continue to run the entire earth.\n");
                 printf("Humanity's last hope was YOU \n");
                 printf("And now you fade into the FEARRr...\n");
+                playerReport();
         } else {
                 printf("CONGRATULATIONS! You just eradicated the zombie outbreak!\n");
                 printf("The hole planet are finally safe from the undead menace.\n");
@@ -482,13 +475,20 @@ void dramaticEndOfGame(char command){
                 printf("to destroy itself with World War III...\n");
                 printf("        DAN DAN DAN...\n");
         }
-        printf("--------------------------------------------------\n");
-        printf("GAME INFO :\n");
-        printf("Levels Completed  : %d\n", level - 1);
-        printf("Final Score       : %d\n", score);
-        printf("--------------------------------------------------\n");
+        printf("You are running out of power...\n");
+        printf("The guns are emptying and the darkness is approaching..\n"); 
+        printf("bye player, i hope you comeback again:)\n");
+        printf("==========================================\n");
 }
 
+void playerReport(void){
+    printf("\n==========================================\n");
+    printf("             PLAYER REPORT");
+    printf("\n==========================================\n");
+    printf("earned levels: %d\n", level-1);
+    printf("total score: %d\n", score);
+    printf("------------------------------------------\n");
+}
 
 int fight(char command, char **board){
     //printf("FIGHT !!\n");
@@ -545,8 +545,9 @@ int fight(char command, char **board){
                         
                         char targetZombie = board[a][b];
                         int numOfKills = neurogun(board, a, b, targetZombie);
-                        int basicScore = numOfKills * charToNumber(targetZombie);
-                        tempScore = scoreFunction(numOfKills, basicScore);
+                        
+                        tempScore = totalScoreFunction(numOfKills);
+                        //tempScore = scoreFunction(numOfKills, basicScore);
 
                         if (numOfKills >= 6) {
                             printf("\n>>> EPIDEMIC STRIKE! A massive chain of %d zombies collapsed! +%d pts <<<\n", numOfKills, tempScore);
@@ -592,8 +593,11 @@ int neurogun(char **board ,int x ,int y, char typeOfTheZombie){
 }
 
 int isValidBombShot(char **board,int a, int b){
-    if (isInsideTheBoard(a, b))
-        return 1;
+    if (a>=-1 && a<= rows){
+        if (b>=-1 && b<= cols){
+            return 1;
+        }
+    }
     return 0;
 }
 
@@ -613,11 +617,10 @@ int bomb(char **board ,char x,char y){
             }
         }
     }
-    // ... end of your nested loops ...
 
-    int finalscore = scoreFunction(zombiesKilled, basicScore);
+    int finalscore = totalScoreFunction(zombiesKilled);
+    //int finalscore = scoreFunction(zombiesKilled, basicScore);
 
-    // THE HYPE MESSAGES!
     if (zombiesKilled >= 5) {
         printf("\n>>> MASSIVE EXPLOSION! %d zombies blown to pieces! +%d pts <<<\n", zombiesKilled, finalscore);
     } else if (zombiesKilled > 0) {
@@ -690,7 +693,9 @@ int plasmagun(char **board ,char direction,char x){
                 continue;
         }
     }
-    int finalscore = scoreFunction(numOfKilledZombies, basicScore);
+    
+    int finalscore = totalScoreFunction(numOfKilledZombies);
+    //int finalscore = scoreFunction(numOfKilledZombies, basicScore);
 
     if (numOfKilledZombies >= 4) {
         printf("\n>>> DEVASTATING BEAM! %d zombies vaporized! +%d pts <<<\n", numOfKilledZombies, finalscore);
@@ -772,6 +777,8 @@ int isInsideTheBoard(int x ,int y){
     }
     return 0; 
 }
+
+
 int scoreFunction (int numOfTheDeadZombies, int basicScore){
     if (numOfTheDeadZombies == 0) 
         return 0;

@@ -125,11 +125,8 @@ int bomb(char **board ,char x,char y){
             }
         }
     }
-    // ... end of your nested loops ...
-
     int finalscore = scoreFunction(zombiesKilled, basicScore);
 
-    // THE HYPE MESSAGES!
     if (zombiesKilled >= 5) {
         printf("\n>>> MASSIVE EXPLOSION! %d zombies blown to pieces! +%d pts <<<\n", zombiesKilled, finalscore);
     } else if (zombiesKilled > 0) {
