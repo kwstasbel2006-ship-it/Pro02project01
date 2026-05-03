@@ -5,6 +5,12 @@
 #include<math.h>
 #include<ctype.h>
 
+#define COLOR_RED     "\033[0;31m"
+#define COLOR_GREEN   "\033[0;32m"
+#define COLOR_YELLOW  "\033[0;33m"
+#define COLOR_BLUE    "\033[0;34m"
+#define COLOR_RESET   "\033[0m"
+
 #define MIN_ROWS 5
 #define MIN_COLS 5
 #define MAX_ROWS 35
@@ -21,6 +27,7 @@ typedef enum { UP, DOWN, LEFT, RIGHT } SoundDirection;
 void createboard(int z);
 void free_board();
 void displayboard();
+
 
 //==========================================================================
 
@@ -52,6 +59,7 @@ void dramaticEndOfGame(char command);
 int scoreFunction(int numOfTheDeadZombies, int basicScore);
 int isValidBombShot(char **board,int a, int b);
 void playerReport(void);
+int hitZombie(char **board, int x, int y);
 
 //kostas variables
 const char* soundNames[];
@@ -248,8 +256,8 @@ void displayboard() // Εμφάνιση του ταμπλό
 //     }
 //}
 
-int totalScoreFunction(int numOfKills){
-    return (numOfKills * numOfKills) * level;
+int totalScoreFunction(int numOfKills, int basicScore){
+    return (numOfKills * numOfKills * basicScore) * level;
 }
 
 
@@ -387,11 +395,16 @@ void print(char **board)
         printf("%2c  |", alphabet(i + 1));
         for (j = 0; j < cols; j++) {
             if (board[i][j] == '#') {
-                printf("\033[0;31m%3c\033[0m", board[i][j]);
+                printf(COLOR_BLUE "%3c" COLOR_RESET, board[i][j]);
             } 
             else if (isZombie(board[i][j])) {
-                printf("\033[0;32m%3c\033[0m", board[i][j]);
-            }
+                if (board[i][j]>'6')
+                    printf(COLOR_GREEN"%3c"COLOR_RESET, board[i][j]);
+                else if (board[i][j]>'3')
+                    printf(COLOR_YELLOW"%3c"COLOR_RESET, board[i][j]);
+                else 
+                    printf(COLOR_RED"%3c"COLOR_RESET, board[i][j]);
+                }
             else {
                 printf("%3c", board[i][j]);
             }
@@ -546,7 +559,8 @@ int fight(char command, char **board){
                         char targetZombie = board[a][b];
                         int numOfKills = neurogun(board, a, b, targetZombie);
                         
-                        tempScore = totalScoreFunction(numOfKills);
+                        int basicScore = numOfKills * charToNumber(targetZombie);
+                        tempScore = totalScoreFunction(numOfKills,basicScore);
                         //tempScore = scoreFunction(numOfKills, basicScore);
 
                         if (numOfKills >= 6) {
@@ -568,12 +582,21 @@ int fight(char command, char **board){
     return tempScore;
 }
 
+int hitZombie(char **board, int x, int y){
+    board[x][y]-=3;
+    if (board[x][y]<='0'){
+        board[x][y]='.';
+        return 1;
+    }
+    return 0;
+}
 
 int neurogun(char **board ,int x ,int y, char typeOfTheZombie){
-    board[x][y]='.';
+    //board[x][y]='.';
+    
     char tempX=x, tempY=y;
     tempY=y+1;
-    int numOfKilledZombies = 1;
+    int numOfKilledZombies = hitZombie(board,x,y);
     if (isInsideTheBoard(x, tempY) && isSameTypeZombie(typeOfTheZombie,board[x][tempY])){
         numOfKilledZombies += neurogun(board, x, tempY,typeOfTheZombie);
     }
@@ -613,12 +636,14 @@ int bomb(char **board ,char x,char y){
             
             if (hitValue > 0) {
                 basicScore += hitValue;
-                zombiesKilled++;
+                if (hitValue<=3)
+                    zombiesKilled++;
+                //zombiesKilled++;
             }
         }
     }
 
-    int finalscore = totalScoreFunction(zombiesKilled);
+    int finalscore = totalScoreFunction(zombiesKilled,basicScore);
     //int finalscore = scoreFunction(zombiesKilled, basicScore);
 
     if (zombiesKilled >= 5) {
@@ -635,7 +660,8 @@ int bomb(char **board ,char x,char y){
 int bombShot(char **board, char x, char y){
     if (isInsideTheBoard(x, y) && isZombie(board[x][y])){
         int zombieValue = charToNumber(board[x][y]);
-        board[x][y] = '.';
+        hitZombie(board,x,y);
+        //board[x][y] = '.';
         return zombieValue;
     }
     return 0;
@@ -649,8 +675,9 @@ int plasmagun(char **board ,char direction,char x){
         for(i=0; i< cols ;i++){
             if(isZombie(board[x][i])){
                 basicScore+=charToNumber(board[x][i]);
-                numOfKilledZombies++;
-                board[x][i]='.';
+                numOfKilledZombies+=hitZombie(board,x,i);
+                //numOfKilledZombies++;
+                //board[x][i]='.';
             }else if(board[x][i]=='#')
                 break;
             else 
@@ -661,8 +688,9 @@ int plasmagun(char **board ,char direction,char x){
         for(i=cols-1; i>= 0 ;i--){
             if(isZombie(board[x][i])){
                 basicScore+=charToNumber(board[x][i]);
-                numOfKilledZombies++;
-                board[x][i]='.';
+                numOfKilledZombies+=hitZombie(board,x,i);
+                //numOfKilledZombies++;
+                //board[x][i]='.';
             }else if(board[x][i]=='#')
                 break;
             else 
@@ -673,8 +701,9 @@ int plasmagun(char **board ,char direction,char x){
         for(i=0; i< rows ;i++){
             if(isZombie(board[i][x])){
                 basicScore+=charToNumber(board[i][x]);
-                numOfKilledZombies++;
-                board[i][x]='.';
+                numOfKilledZombies+=hitZombie(board,i,x);
+                //numOfKilledZombies++;
+                //board[x][i]='.';
             }else if(board[i][x]=='#')
                 break;
             else 
@@ -685,8 +714,9 @@ int plasmagun(char **board ,char direction,char x){
         for(i=rows-1; i>= 0 ;i--){
             if(isZombie(board[i][x])){
                 basicScore+=charToNumber(board[i][x]);
-                numOfKilledZombies++;
-                board[i][x]='.';
+                numOfKilledZombies+=hitZombie(board,i,x);
+                //numOfKilledZombies++;
+                //board[x][i]='.';
             }else if(board[i][x]=='#')
                 break;
             else 
@@ -694,7 +724,7 @@ int plasmagun(char **board ,char direction,char x){
         }
     }
     
-    int finalscore = totalScoreFunction(numOfKilledZombies);
+    int finalscore = totalScoreFunction(numOfKilledZombies,basicScore);
     //int finalscore = scoreFunction(numOfKilledZombies, basicScore);
 
     if (numOfKilledZombies >= 4) {
