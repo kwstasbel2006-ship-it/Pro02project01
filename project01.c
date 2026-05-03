@@ -1,3 +1,7 @@
+// Onomata Αlexandros Altintop        Konstantinos Velissaris
+// AM      2022202400006              2022202400021
+// Mail    dit24006@go.uop.gr         dit24021@go.uop.gr
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
